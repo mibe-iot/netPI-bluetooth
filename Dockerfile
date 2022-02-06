@@ -1,7 +1,7 @@
 #STEP 1 of multistage build ---Compile Bluetooth stack-----
 
 #use armv7hf compatible base image
-FROM balenalib/armv7hf-debian:buster-20191223 as builder
+FROM debian/buster-20220125-slim as builder
 
 #environment variables
 ENV BLUEZ_VERSION 5.54
