@@ -1,6 +1,6 @@
 #STEP 1 of multistage build ---Compile Bluetooth stack-----
 
-#use armv7hf compatible base image
+#use debian base image
 FROM debian:buster-20220125-slim as builder
 
 #environment variables
@@ -8,7 +8,7 @@ ENV BLUEZ_VERSION 5.54
 
 RUN apt-get update && apt-get install -y \
     build-essential wget \
-    libical-dev libdbus-1-dev libglib2.0-dev libreadline-dev libudev-dev systemd
+    libical-dev udev libdbus-1-dev libglib2.0-dev libreadline-dev libudev-dev systemd
 
 RUN wget -P /tmp/ https://www.kernel.org/pub/linux/bluetooth/bluez-${BLUEZ_VERSION}.tar.gz \
  && tar xf /tmp/bluez-${BLUEZ_VERSION}.tar.gz -C /tmp \
@@ -28,8 +28,8 @@ RUN wget -P /tmp/ https://www.kernel.org/pub/linux/bluetooth/bluez-${BLUEZ_VERSI
 
 #STEP 2 of multistage build ----Create the final image-----
 
-#use armv7hf compatible base image
-FROM balenalib/armv7hf-debian:buster-20191223
+#openjdk
+FROM openjdk:11
 
 #dynamic build arguments coming from the /hooks/build file
 ARG BUILD_DATE
