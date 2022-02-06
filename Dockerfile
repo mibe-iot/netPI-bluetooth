@@ -72,7 +72,7 @@ RUN apt-get update && apt-get install -y \
 #clean up
  && rm -rf /tmp/* \
  && rm -rf /opt/vc/src \
- && apt-get remove git curl \
+ && apt-get remove -y git curl \
  && apt-get -yqq autoremove \
  && apt-get -y clean \
  && rm -rf /var/lib/apt/lists/*
